@@ -22,13 +22,46 @@ class testBilletera(unittest.TestCase):
     def test_InitBilletera(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,5594)
 
+    def test_CedulaBilletera(self):
+        self.assertRaises(Exception,Billetera,0,"oscar","guillen",'V',"hkvjw",5594)
+
+    def test_ClaveBilletera(self):
+        self.assertRaises(Exception,Billetera,0,"oscar","guillen",'V',20895447,"hkbrvre")
+
+    def test_TipoCedulaBilletera(self):
+        self.assertRaises(Exception,Billetera,0,"oscar","guillen",'JHUIY',20895447,5594)
+
+    def test_IDBilletera(self):
+        self.assertRaises(Exception,Billetera,"nhgiu","oscar","guillen",'V',20895447,5594)
+
     # Prueba para crear la clase recarga.
     def test_Recarga(self):
         nuevoCredito = Recarga(10,1000,datetime.datetime.now(),0)
-             
+        
+    def test_IDRecarga(self):
+        self.assertRaises(Exception,Recarga,"ID_MALO",1000,datetime.datetime.now(),0)             
+
+    def test_FechaRecarga(self):
+        self.assertRaises(Exception,Recarga,10,1000,"FECHA_MALA",0)    
+        
+    def test_IDEstRecarga(self):
+        self.assertRaises(Exception,Recarga,10,1000,datetime.datetime.now(),"ID_ESTA_MALO")        
+     
     # Prueba para crear la clase consumo.
     def test_Consumo(self):
         nuevoDebito = Consumo(10,1000,datetime.datetime.now(),0)
+    
+    def test_IDConsumo(self):
+        self.assertRaises(Exception,Consumo,"ID_MALO",1000,datetime.datetime.now(),0)
+
+    def test_FechaConsumo(self):
+        self.assertRaises(Exception,Consumo,10,100,"FECHA_MALA",0)    
+
+    def test_IDEstConsumo(self):
+        self.assertRaises(Exception,Consumo,10,100,datetime.datetime.now(),"IDEst_Malo")    
+
+    def test_MontoConsumo(self):
+        self.assertRaises(Exception,Consumo,10,10,datetime.datetime.now(),0)
     
     # Prueba para crear la funcion Saldo.    
     def test_Saldo(self):
@@ -39,7 +72,7 @@ class testBilletera(unittest.TestCase):
     def test_Recargar(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
         Recargar(nuevaBilletera,0,1000,datetime.datetime.now(),0)
-        
+
     # Prueba para crear la funcion consumir()
     def test_Consumir(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
@@ -49,6 +82,10 @@ class testBilletera(unittest.TestCase):
         
     # Prueba para agregar Validaciones a consumir().
     def test_DebitarSinBalance(self):
+        nuevaBilletera = Billetera(4,"patricia","reinoso",'V',21444452,1234)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, 4, 1000, datetime.datetime.now(),4,1234)
+    
+    def test_DebitarIdInvalido(self):
         nuevaBilletera = Billetera(4,"patricia","reinoso",'V',21444452,1234)
         self.assertRaises(Exception,Consumir,nuevaBilletera, 4, 1000, datetime.datetime.now(),4,1234)
         

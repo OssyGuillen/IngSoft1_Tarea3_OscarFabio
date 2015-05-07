@@ -65,6 +65,21 @@ class Billetera:
         
 # Funcion consumir: Registra un debito en el balance de una billetera.
 def Consumir(billet, id_trans, monto, fecha, id_est, pin):
+        if (not isinstance(billet, Billetera)):
+            raise Exception("billet debe ser instancia de billetera.")
+        
+        if (not isinstance(monto, double)):
+            raise Exception("El monto debe ser numerico.")
+        
+        if (not isinstance(fecha, datetime)):
+            raise Exception("La fecha debe ser datetime.")
+        
+        if (not isinstance(id_est, double)):
+            raise Exception("El id_est debe ser int")
+
+        if (not isinstance(pin, int)):
+            raise Exception("El pin debe ser int")
+        
         if (monto <= 0):
             raise Exception("No se permiten montos negativos")
         if (billet.Saldo() < monto):
@@ -78,6 +93,34 @@ def Consumir(billet, id_trans, monto, fecha, id_est, pin):
  
 # Funcion recargar: Registra un credito en el balance de una billetera.     
 def Recargar(billet,id_trans, monto, fecha, id_est):
+        if (not isinstance(billet, Billetera)):
+            raise Exception("billet debe ser instancia de billetera.")
+        
+        if (not isinstance(monto, double)):
+            raise Exception("El monto debe ser numerico.")
+        
+        if (not isinstance(fecha, datetime.datetime)):
+            raise Exception("La fecha debe ser datetime.")
+        
+        if (not isinstance(id_est, double)):
+            raise Exception("El id_est debe ser int")
+
+        if (not isinstance(pin, int)):
+            raise Exception("El pin debe ser int")
+        
+    
+        if ((not isinstance(id_trans, int)) or (id < 0)):
+            raise Exception("El ID_trans debe ser entero positivo.")
+        
+        if (not isinstance(monto, double)):
+            raise Exception("El monto debe ser numerico.")
+        
+        if (not isinstance(fecha, datetime)):
+            raise Exception("La fecha debe ser datetime.")
+        
+        if (not isinstance(id_est, double)):
+            raise Exception("El id_est debe ser int")        
+    
         if (monto <= 0):
             raise Exception("No se permiten montos negativos")
         nuevoCredito = Recarga(id_trans,monto,fecha,id_est)
