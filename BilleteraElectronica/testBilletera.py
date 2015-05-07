@@ -42,3 +42,13 @@ class testBilletera(unittest.TestCase):
     def test_Recargar(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
         Recargar(nuevaBilletera, "id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+    
+    # Prueba para agregar Validaciones a consumir().
+    def test_DebitarSalgoNegativo(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, "id", -1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+    
+    # Prueba para agregar Validaciones a recargar().
+    def test_RecargarSalgoNegativo(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        self.assertRaises(Exception,Recargar,nuevaBilletera, "id", -1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est")
