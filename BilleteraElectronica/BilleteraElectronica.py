@@ -65,7 +65,7 @@ class Billetera:
         
 # Funcion consumir: Registra un debito en el balance de una billetera.
 def Consumir(billet, id_trans, monto, fecha, id_est, pin):
-        if (monto < 0):
+        if (monto <= 0):
             raise Exception("No se permiten montos negativos")
         if (billet.Saldo() < monto):
             raise Exception("No tiene suficientes fondos en su billetera.")
@@ -78,7 +78,7 @@ def Consumir(billet, id_trans, monto, fecha, id_est, pin):
  
 # Funcion recargar: Registra un credito en el balance de una billetera.     
 def Recargar(billet,id_trans, monto, fecha, id_est):
-        if (monto < 0):
+        if (monto <= 0):
             raise Exception("No se permiten montos negativos")
         nuevoCredito = Recarga(id_trans,monto,fecha,id_est)
         billet.CreditarBalance(nuevoCredito.monto)

@@ -45,18 +45,7 @@ class testBilletera(unittest.TestCase):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
         Recargar(nuevaBilletera,0,1000,datetime.datetime.now(),0)
         Consumir(nuevaBilletera,0,1000,datetime.datetime.now(),0,1234)
-        
-    # Prueba para agregar Validaciones a consumir().
-    def test_DebitarSalgoNegativo(self):
-        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        Recargar(nuevaBilletera,0,1000,datetime.datetime.now(),0)
-        self.assertRaises(Exception,Consumir,nuevaBilletera, 0, -1000, datetime.datetime.now(),1,1234)
-    
-    # Prueba para agregar Validaciones a recargar().
-    def test_RecargarSalgoNegativo(self):
-        nuevaBilletera = Billetera(2,"susa","rodriguez",'V',21444450,1234)
-        Recargar(nuevaBilletera,2,1000,datetime.datetime.now(),0)
-        self.assertRaises(Exception,Recargar,nuevaBilletera, 2, -1000, datetime.datetime.now(),2)
+
         
     # Prueba para agregar Validaciones a consumir().
     def test_DebitarSinBalance(self):
@@ -73,30 +62,27 @@ class testBilletera(unittest.TestCase):
     # Prueba para valores incorrectos al crear una billetera.
     def test_BilleteraCorrecta(self): 
         self.assertRaises(Exception,Billetera,1,1,1,1,"21444449","5594")
-        
-    def test_RecargaMontoMaximoInvalido(self):
-        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera, 0, datetime.datetime.now(),1)
 
     def test_RecargaMontoNegativo(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,-10,datetime.datetime.now(),1)
+        self.assertRaises(Exception,Recargar,nuevaBilletera,0,-10,datetime.datetime.now(),1)
 
     def test_RecargaFechaPasada(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,10,datetime.datetime(2015,5,23,18,25,0,0),1)
+        self.assertRaises(Exception,Recargar,nuevaBilletera,0,10,datetime.datetime(2015,5,23,18,25,0,0),1)
 
     def test_RecargaFechaFutura(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,10,datetime.datetime(2016,5,23,18,25,0,0),1)
+        self.assertRaises(Exception,Recargar,nuevaBilletera,0,10,datetime.datetime(2016,5,23,18,25,0,0),1)
     
     def test_RecargaMuyGrande(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,10000000000000000000000000000000000000000,datetime.datetime.now(),1)
+        Recargar(nuevaBilletera,0,10^16,datetime.datetime.now(),1)
+        self.assertEqual(nuevaBilletera.Saldo(),10^16)
 
     def test_RecargaMinimaNoPermitida(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,1,datetime.datetime.now(),1)
+        self.assertRaises(Exception,Recargar,nuevaBilletera,0,0,datetime.datetime.now(),1)
 
     def test_RecargaMinimaPermitidaEntera(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
@@ -105,26 +91,28 @@ class testBilletera(unittest.TestCase):
         temp2= nuevaBilletera.Saldo()
         self.assertEqual(temp2,1+temp)
 
-    def test_RecargaCuentaInvalida(self):
-        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,10,datetime.datetime.now(),20000)
-    
     def test_RecargaTexto(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,"RECARGA TEXTO",datetime.datetime.now(),20000)
+        self.assertRaises(Exception,Recargar,nuevaBilletera,0,"RECARGA TEXTO",datetime.datetime.now(),20000)
 
     def test_RecargaDecimalNormal(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,0.57,datetime.datetime.now(),20000)
+        temp = nuevaBilletera.Saldo()
+        Recargar(nuevaBilletera,0,0.1,datetime.datetime.now(),0)
+        temp2 = nuevaBilletera.Saldo()
+        self.assertEqual(temp2,temp+0.1)
 
     def test_RecargaDecimalChico(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
-        self.assertRaises(Exception,Recargar,nuevaBilletera,0.0057,datetime.datetime.now(),20000)
+        temp = nuevaBilletera.Saldo()
+        Recargar(nuevaBilletera,0,0.00057,datetime.datetime.now(),0)
+        temp2 = nuevaBilletera.Saldo()
+        self.assertEqual(temp2,temp+0.00057)
 
     def test_DebitoMontoNegativo(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
         Recargar(nuevaBilletera,0,1000,datetime.datetime.now(),0)
-        self.assertRaises(Exception,Consumir,1,0,datetime.datetime.now(),1,1234)
+        self.assertRaises(Exception,Consumir,1,-100,datetime.datetime.now(),1,1234)
 
     def test_DebitoMontoNegativo(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
@@ -185,3 +173,7 @@ class testBilletera(unittest.TestCase):
         Recargar(nuevaBilletera,0,1000,datetime.datetime.now(),0)
         Consumir(nuevaBilletera,7,1000,datetime.datetime.now(),20000,1234)
         self.assertEqual(nuevaBilletera.Saldo(),0)
+
+    def test_DebitoMinimaNoPermitida(self):
+        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
+        self.assertRaises(Exception,Consumir,nuevaBilletera,0,1,datetime.datetime.now(),1,1234)
