@@ -64,3 +64,5 @@ class testBilletera(unittest.TestCase):
     def test_VerificacionDePIN(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
         self.assertRaises(Exception,Consumir,nuevaBilletera, "id", 1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5595)
+        
+    # Prueba para valores incorrectos al crear una billetera.  
