@@ -9,16 +9,27 @@ Created on 04/05/2015
             Implementacion de la clase billetera electronica.
             Estructura creada como servicio de pago...
 '''
-from django.db import models
+from consumo import Consumo
 
-class Billetera(models.Model):
+class Billetera:
     
-    balance = 0 
+    __balance = 0 
     
     def __init__(self,id,nombre,apellido,cedulaTipo,cedula,pin):
-        self.id              = id
-        self.nombre          = nombre
-        self.apellido        = apellido
-        self.cedulaTipo     = cedulaTipo
-        self.cedula         = cedula
-        self.pin            = pin
+        self.__id              = id
+        self.__nombre          = nombre
+        self.__apellido        = apellido
+        self.__cedulaTipo     = cedulaTipo
+        self.__cedula         = cedula
+        self.__pin            = pin
+        
+    def Saldo(self):
+        return self.__balance
+    
+    def DebitBalance(self, monto):
+        self.__balance -= monto
+        
+
+def Consumir(self, wallet, id_trans, monto, fecha, id_est):
+        newDebit = Consumo(id_trans,monto,fecha,id_est) 
+        wallet.DebitBalance(newDebit.monto)

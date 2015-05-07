@@ -9,14 +9,17 @@ Created on 04/05/2015
             Implementacion del archivo para los casos de prueba.
 '''
 import unittest
+import datatime
 from BilleteraElectronica import Billetera
+from consumo import Consumo
+from recarga import Recarga
 
 class testBilletera(unittest.TestCase):
 ############## Pruebas para la estrategia TDD. ##########
 
     # Prueba para crear la clase billetera.
     def test_InitBilletera(self):
-        newPocket = Billetera("id","oscar","guillen",'V',21444449,5594)
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
         
     # Prueba para crear la clase consumo.
     def test_Consumo(self):
@@ -25,3 +28,14 @@ class testBilletera(unittest.TestCase):
     # Prueba para crear la clase recarga.
     def test_Recarga(self):
         newCredit = Recarga("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+    
+    # Prueba para crear la funcion Saldo.    
+    def test_Saldo(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        self.assertEqual(nuevaBilletera.Saldo(), 0)
+    # Prueba para crear la funcion consumir()
+    def test_Consumir(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        Consumir(nuevaBilletera, "id",1000,datatime.now(),"id_est")
+
+        
