@@ -9,3 +9,16 @@ Created on 04/05/2015
             Implementacion de la clase billetera electronica.
             Estructura creada como servicio de pago...
 '''
+from django.db import models
+
+class Billetera(models.Model):
+    
+    balance = 0 
+    
+    def __init__(self,id,nombre,apellido,cedulaTipo,cedula,pin):
+        self.id              = id
+        self.nombre          = nombre
+        self.apellido        = apellido
+        self.cedulaTipo     = cedulaTipo
+        self.cedula         = cedula
+        self.pin            = pin
