@@ -13,6 +13,7 @@ import datetime
 from BilleteraElectronica import *
 from consumo import Consumo
 from recarga import Recarga
+import BilleteraElectronica
 
 class testBilletera(unittest.TestCase):
 ############## Pruebas para la estrategia TDD. ##########
@@ -65,4 +66,6 @@ class testBilletera(unittest.TestCase):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
         self.assertRaises(Exception,Consumir,nuevaBilletera, "id", 1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5595)
         
-    # Prueba para valores incorrectos al crear una billetera.  
+    # Prueba para valores incorrectos al crear una billetera.
+    def test_BilleteraCorrecta(self): 
+        self.assertRaises(Exception,BilleteraElectronica,1,1,1,1,"21444449","5594")

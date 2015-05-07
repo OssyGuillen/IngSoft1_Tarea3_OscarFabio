@@ -17,7 +17,27 @@ class Billetera:
     
     __balance = 0 
     
+    # Constructor 
     def __init__(self,id,nombre,apellido,cedulaTipo,cedula,pin):
+        
+        if ((not isinstance(id, str)) or (id == "")):
+            raise Exception("El ID debe ser un String no vacio.")
+        
+        if ((not isinstance(nombre, str)) or (nombre == "")):
+            raise Exception("El nombre debe ser un String no vacio.")
+        
+        if ((not isinstance(apellido, str)) or (apellido == "")):
+            raise Exception("El apellido debe ser un String no vacio.")
+        
+        if ((not isinstance(cedulaTipo, str)) or (cedulaTipo == "")):
+            raise Exception("EL tipo de CI debe ser un String no vacio (V o E).")
+        
+        if (not isinstance(cedula, int) or (cedula <= 0)):
+            raise Exception("La cedula debe ser un Entero positivo")
+        
+        if (not isinstance(pin, int) or (pin <= 0)):
+            raise Exception("El PIN debe ser un Entero positivo")
+        
         self.__id              = id
         self.__nombre          = nombre
         self.__apellido        = apellido
