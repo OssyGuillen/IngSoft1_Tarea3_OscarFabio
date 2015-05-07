@@ -234,3 +234,40 @@ class testBilletera(unittest.TestCase):
     def test_DebitoMinimaNoPermitida(self):
         nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
         self.assertRaises(Exception,Consumir,nuevaBilletera,0,1.0,datetime.datetime.now(),1,1234)
+        
+#### CASOS ESQUINAS #####
+
+    # Caso Esquina.
+    def test_NingunDatoCorrecto(self):
+        self.assertRaises(Exception,Billetera,"KK",111,11,11,"21444449","1234")    
+
+    # Caso Esquina.
+    def test_DebitarCantidadExactaPinMalo(self):
+        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
+        Recargar(nuevaBilletera,0,1000.0,datetime.datetime.now(),0)
+        self.assertRaises(Exception,Consumir,nuevaBilletera,7,1000.0,datetime.datetime.now(),20000,1233)
+        self.assertEqual(nuevaBilletera.Saldo(),1000.0)
+    
+    # Caso Esquina
+    def test_VerificacionDePINSaldoNegativo(self):
+        nuevaBilletera = Billetera(1,"oscar","guillen",'V',21444449,5594)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, 1, -1000.0, datetime.datetime.now(),1,5595)
+
+    # Caso Esquina.
+    def test_DebitarSinBalanceYNegativo(self):
+        nuevaBilletera = Billetera(4,"patricia","reinoso",'V',21444452,1234)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, 4, -1000.0, datetime.datetime.now(),4,1234)
+        
+    # Caso Esquina.
+    def test_BalanceMuyGrandeRecargaYConsumo(self):
+        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
+        Recargar(nuevaBilletera,0,100000000000000000000.0,datetime.datetime.now(),0)
+        Consumir(nuevaBilletera,7,100000000000000000000.0,datetime.datetime.now(),20000,1234)
+        self.assertEqual(nuevaBilletera.Saldo(),0.0)
+        
+    # Caso Esquina.
+    def test_BalanceMuyGrandeYMuyPequeno(self):
+        nuevaBilletera = Billetera(0,"oscar","guillen",'V',21444449,1234)
+        Recargar(nuevaBilletera,0,100000000000000000000.0,datetime.datetime.now(),0)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, 4, -100000000000000000000.0, datetime.datetime.now(),4,1234)
+        self.assertEqual(nuevaBilletera.Saldo(),100000000000000000000.0)
