@@ -8,3 +8,11 @@ Created on 04/05/2015
 @Description
             Implementacion de la estructura recarga
 '''
+
+class Recarga:
+    
+    def __init__(self,id,monto,fecha,establecimiento):
+        self.id = id
+        self.monto = monto
+        self.fecha = fecha
+        self.id_establec = establecimiento

@@ -17,3 +17,11 @@ class testBilletera(unittest.TestCase):
     # Prueba para crear la clase billetera.
     def test_InitBilletera(self):
         newPocket = Billetera("id","oscar","guillen",'V',21444449,5594)
+        
+    # Prueba para crear la clase consumo.
+    def test_Consumo(self):
+        newDebit = Consumo("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        
+    # Prueba para crear la clase recarga.
+    def test_Recarga(self):
+        newCredit = Recarga("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
