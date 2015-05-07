@@ -15,7 +15,7 @@ import datetime
 
 class Billetera:
     
-    __balance = 0 
+    __balance = 0.0 
     
     # Constructor 
     def __init__(self,id,nombre,apellido,cedulaTipo,cedula,pin):
@@ -68,19 +68,19 @@ def Consumir(billet, id_trans, monto, fecha, id_est, pin):
         if (not isinstance(billet, Billetera)):
             raise Exception("billet debe ser instancia de billetera.")
         
-        if (not isinstance(monto, double)):
+        if (not isinstance(monto, float)):
             raise Exception("El monto debe ser numerico.")
         
-        if (not isinstance(fecha, datetime)):
-            raise Exception("La fecha debe ser datetime.")
+        if ((not isinstance(id_trans, int)) or (id_trans < 0)):
+            raise Exception("El ID_trans debe ser entero positivo.")
         
-        if (not isinstance(id_est, double)):
+        if (not isinstance(id_est, int)):
             raise Exception("El id_est debe ser int")
 
         if (not isinstance(pin, int)):
             raise Exception("El pin debe ser int")
         
-        if (monto <= 0):
+        if (monto <= 0.0):
             raise Exception("No se permiten montos negativos")
         if (billet.Saldo() < monto):
             raise Exception("No tiene suficientes fondos en su billetera.")
@@ -93,32 +93,23 @@ def Consumir(billet, id_trans, monto, fecha, id_est, pin):
  
 # Funcion recargar: Registra un credito en el balance de una billetera.     
 def Recargar(billet,id_trans, monto, fecha, id_est):
-        if (not isinstance(billet, Billetera)):
+
+        if not isinstance(billet, Billetera):
             raise Exception("billet debe ser instancia de billetera.")
         
-        if (not isinstance(monto, double)):
+        if not isinstance(monto, float):
             raise Exception("El monto debe ser numerico.")
         
-        if (not isinstance(fecha, datetime.datetime)):
-            raise Exception("La fecha debe ser datetime.")
-        
-        if (not isinstance(id_est, double)):
+        if not isinstance(id_est, int):
             raise Exception("El id_est debe ser int")
-
-        if (not isinstance(pin, int)):
-            raise Exception("El pin debe ser int")
-        
     
-        if ((not isinstance(id_trans, int)) or (id < 0)):
+        if ((not isinstance(id_trans, int)) or (id_trans < 0)):
             raise Exception("El ID_trans debe ser entero positivo.")
         
-        if (not isinstance(monto, double)):
+        if not isinstance(monto, float):
             raise Exception("El monto debe ser numerico.")
         
-        if (not isinstance(fecha, datetime)):
-            raise Exception("La fecha debe ser datetime.")
-        
-        if (not isinstance(id_est, double)):
+        if (not isinstance(id_est, int)):
             raise Exception("El id_est debe ser int")        
     
         if (monto <= 0):
