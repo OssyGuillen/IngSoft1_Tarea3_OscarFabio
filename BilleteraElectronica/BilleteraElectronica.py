@@ -10,6 +10,8 @@ Created on 04/05/2015
             Estructura creada como servicio de pago...
 '''
 from consumo import Consumo
+from recarga import Recarga
+import datetime
 
 class Billetera:
     
@@ -23,13 +25,23 @@ class Billetera:
         self.__cedula         = cedula
         self.__pin            = pin
         
+    # Metodo Saldo: retorna el balance de la billetera.    
     def Saldo(self):
         return self.__balance
     
-    def DebitBalance(self, monto):
+    # Metodo DebitarBalance: registra un debito en el balance.
+    def DebitarBalance(self, monto):
         self.__balance -= monto
         
-
-def Consumir(self, wallet, id_trans, monto, fecha, id_est):
-        newDebit = Consumo(id_trans,monto,fecha,id_est) 
-        wallet.DebitBalance(newDebit.monto)
+    # Metodo CreditarBalance: registra un credito en el balance.    
+    def CreditarBalance(self,monto):
+        self.__balance += monto
+        
+# Funcion consumir: Registra un deito en el balance de una billetera.
+def Consumir(billet, id_trans, monto, fecha, id_est):
+        nuevoDebito = Consumo(id_trans,monto,fecha,id_est) 
+        billet.DebitarBalance(nuevoDebito.monto)
+        
+def Recargar(billet,id_trans, monto, fecha, id_est):
+        nuevoCredito = Recarga(id_trans,monto,fecha,id_est)
+        billet.CreditarBalance(nuevoCredito.monto)

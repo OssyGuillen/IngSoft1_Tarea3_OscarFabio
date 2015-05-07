@@ -9,8 +9,8 @@ Created on 04/05/2015
             Implementacion del archivo para los casos de prueba.
 '''
 import unittest
-import datatime
-from BilleteraElectronica import Billetera
+import datetime
+from BilleteraElectronica import *
 from consumo import Consumo
 from recarga import Recarga
 
@@ -23,11 +23,11 @@ class testBilletera(unittest.TestCase):
         
     # Prueba para crear la clase consumo.
     def test_Consumo(self):
-        newDebit = Consumo("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        nuevoDebito = Consumo("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
         
     # Prueba para crear la clase recarga.
     def test_Recarga(self):
-        newCredit = Recarga("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        nuevoCredito = Recarga("id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
     
     # Prueba para crear la funcion Saldo.    
     def test_Saldo(self):
@@ -36,6 +36,9 @@ class testBilletera(unittest.TestCase):
     # Prueba para crear la funcion consumir()
     def test_Consumir(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
-        Consumir(nuevaBilletera, "id",1000,datatime.now(),"id_est")
-
+        Consumir(nuevaBilletera,"id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
         
+    # Prueba para crear la funcion recargar()    
+    def test_Recargar(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        Recargar(nuevaBilletera, "id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
