@@ -20,8 +20,8 @@ class Billetera:
     # Constructor 
     def __init__(self,id,nombre,apellido,cedulaTipo,cedula,pin):
         
-        if ((not isinstance(id, str)) or (id == "")):
-            raise Exception("El ID debe ser un String no vacio.")
+        if ((not isinstance(id, int)) or (id < 0)):
+            raise Exception("El ID debe ser entero positivo.")
         
         if ((not isinstance(nombre, str)) or (nombre == "")):
             raise Exception("El nombre debe ser un String no vacio.")
@@ -59,6 +59,9 @@ class Billetera:
         
     def VerificarPIN(self,pin):
         return self.__pin == pin 
+    
+    def VerificarCuenta(self,cuenta):
+        return self.__id == cuenta 
         
 # Funcion consumir: Registra un debito en el balance de una billetera.
 def Consumir(billet, id_trans, monto, fecha, id_est, pin):
@@ -66,6 +69,8 @@ def Consumir(billet, id_trans, monto, fecha, id_est, pin):
             raise Exception("No se permiten montos negativos")
         if (billet.Saldo() < monto):
             raise Exception("No tiene suficientes fondos en su billetera.")
+        if (not(billet.VerificarPIN(pin))):
+            raise Exception("El PIN es erroneo.")
         if (not(billet.VerificarPIN(pin))):
             raise Exception("El PIN es erroneo.")
         nuevoDebito = Consumo(id_trans,monto,fecha,id_est) 
