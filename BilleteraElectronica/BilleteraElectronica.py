@@ -38,7 +38,7 @@ class Billetera:
         self.__balance += monto
         
     def VerificarPIN(self,pin):
-        return self.__pin == pin
+        return self.__pin == pin 
         
 # Funcion consumir: Registra un debito en el balance de una billetera.
 def Consumir(billet, id_trans, monto, fecha, id_est, pin):

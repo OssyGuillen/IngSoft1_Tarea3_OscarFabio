@@ -59,7 +59,7 @@ class testBilletera(unittest.TestCase):
         self.assertRaises(Exception,Consumir,nuevaBilletera, "id", 1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5594)
         
     # Prueba para agregar Validacion de Pin a consumir().
-    # Para esto se tendra que agregar otro campo a la funcion consumir
+    # Para esto se tendra que agregar otro campo a la funcion consumir 
     # para la entrada del PIN.
     def test_VerificacionDePIN(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
