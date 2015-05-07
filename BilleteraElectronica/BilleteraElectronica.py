@@ -37,10 +37,17 @@ class Billetera:
     def CreditarBalance(self,monto):
         self.__balance += monto
         
+    def VerificarPIN(self,pin):
+        return self.__pin == pin
+        
 # Funcion consumir: Registra un debito en el balance de una billetera.
-def Consumir(billet, id_trans, monto, fecha, id_est):
+def Consumir(billet, id_trans, monto, fecha, id_est, pin):
         if (monto < 0):
             raise Exception("No se permiten montos negativos")
+        if (billet.Saldo() < monto):
+            raise Exception("No tiene suficientes fondos en su billetera.")
+        if (not(billet.VerificarPIN(pin))):
+            raise Exception("El PIN es erroneo.")
         nuevoDebito = Consumo(id_trans,monto,fecha,id_est) 
         billet.DebitarBalance(nuevoDebito.monto)
  

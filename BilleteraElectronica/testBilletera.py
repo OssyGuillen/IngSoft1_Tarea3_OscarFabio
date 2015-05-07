@@ -36,7 +36,7 @@ class testBilletera(unittest.TestCase):
     # Prueba para crear la funcion consumir()
     def test_Consumir(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
-        Consumir(nuevaBilletera,"id",1000,datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        Consumir(nuevaBilletera,"id",0,datetime.datetime(2015,5,23,18,25,0,0),"id_est",5594)
         
     # Prueba para crear la funcion recargar()    
     def test_Recargar(self):
@@ -46,9 +46,21 @@ class testBilletera(unittest.TestCase):
     # Prueba para agregar Validaciones a consumir().
     def test_DebitarSalgoNegativo(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
-        self.assertRaises(Exception,Consumir,nuevaBilletera, "id", -1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        self.assertRaises(Exception,Consumir,nuevaBilletera, "id", -1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5594)
     
     # Prueba para agregar Validaciones a recargar().
     def test_RecargarSalgoNegativo(self):
         nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
         self.assertRaises(Exception,Recargar,nuevaBilletera, "id", -1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est")
+        
+    # Prueba para agregar Validaciones a consumir().
+    def test_DebitarSinBalance(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, "id", 1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5594)
+        
+    # Prueba para agregar Validacion de Pin a consumir().
+    # Para esto se tendra que agregar otro campo a la funcion consumir
+    # para la entrada del PIN.
+    def test_VerificacionDePIN(self):
+        nuevaBilletera = Billetera("id","oscar","guillen",'V',21444449,5594)
+        self.assertRaises(Exception,Consumir,nuevaBilletera, "id", 1000, datetime.datetime(2015,5,23,18,25,0,0),"id_est",5595)
